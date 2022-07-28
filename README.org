@@ -1,0 +1,50 @@
+#+TITLE: emacs-dilbert
+#+STARTUP: inlineimages
+
+Implementation of a [[https://dilbert.org][diblert]] reader in GNU Emacs.
+
+* Installation
+** Via straight and use-package
+#+begin_src emacs-lisp
+  (use-package 'dilbert
+    :straight (:type git :host github :repo "mrbussy/emacs-dilbert" :branch "main")
+    )
+#+end_src
+** Via Git
+Clone this repo to a desired location, add the directory to your load path:
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path (expand-file-name "/path/to/emacs-dilbert"))
+(require 'dilbert)
+#+END_SRC
+
+* Viewing comics
+  + ~dilbert-get-latest~ loads the latest dilbert
+  + ~dilbert-get-for-date~ load a dilbert for the given date
+
+Files are cached (for later offline viewing) by default to =~/.emacs.d/dilbert/=.
+This can be changed by changing ~dilbert-cache-dir~ in emacs-xkcd's customize menu. 
+(~customize-group dilbert~)
+  
+* Customization
+  
+  emacs-xkcd can be customized with ~M-x customize-group dilbert~.
+  | Option               | Use                                    | Default value                 |
+  |----------------------+----------------------------------------+-------------------------------|
+  | ~dilbert-cache-dir~    | Directory where images are cached      | =~/.emacs.d/dilbert/=           |
+  | ~dilbert-cache-latest~ | the latest dilbert will be stored here | =~/.emacs.d/dilbert/latest.gif= |
+
+* Keybindings:
+
+There is a special ~dilbert mode map~.
+
+  | Keybinding | Use                                    | Function                  |
+  |------------+----------------------------------------+---------------------------|
+  | q          | Close dilbert                          | (~dilbert-kill-buffer~)   |
+  | s          | Search for a dilbert at the given date | (~dilbert-get-for-date ""~) |
+
+* Things left over
+** TODO Step forward and backwards in time using ~p~ and ~n~
+** TODO Validate that the dilbert actually exists before attempt to download
+** TODO Have the function ~dilbert-get-for-date~ use the actual calendar to ask for a date
+** TODO Show the actual date in the header and not the filename
