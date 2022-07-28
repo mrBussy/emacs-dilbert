@@ -3,8 +3,10 @@
 ;; Copyright (C) 2022  R. Middel
 
 ;; Author: R. Middel <r.middel@mrbussy.eu>
+;; URL: https://github.com/mrbussy/emacs-dilbert
 ;; Keywords: lisp, multimedia
 ;; Version: 1.0.0
+;; Package-Requires: ((emacs "25.1"))
 
 ;; MIT License
 
@@ -35,7 +37,6 @@
 
 ;; Loosly based on https://github.com/vibhavp/emacs-xkcd/blob/master/xkcd.el
 
-(require 'org)
 (require 'image)
 
 ;;;; CODE:
@@ -73,8 +74,7 @@ Should preferably be located in `dilbert-cache-dir'."
   "Open the latest dilbert."
   (interactive)
   (let ((dilbert-asset-url (dilbert--retrieve-asset-url dilbert-site)))
-    (dilbert--download-and-show dilbert-asset-url dilbert-cache-latest)
-    ))
+    (dilbert--download-and-show dilbert-asset-url dilbert-cache-latest)))
 
 (defun dilbert-get-for-date (dilbert-date-p)
   "Open a dilbert for date 'YYYY-mm-dd' represented by DILBERT-DATE-P."
@@ -85,10 +85,7 @@ Should preferably be located in `dilbert-cache-dir'."
 
     (message "for date: %s (%s; %s)" dilbert-date-p dilbert-strip-url dilbert-asset-file)
     (let ((dilbert-asset-url (dilbert--retrieve-asset-url dilbert-strip-url)))
-      (dilbert--download-and-show dilbert-asset-url dilbert-asset-file)
-      )
-    )
-  )
+      (dilbert--download-and-show dilbert-asset-url dilbert-asset-file))))
 
 (defun dilbert--retrieve-asset-url (url-p)
   "Internal function to retrieve the dilbert page URL-P."
@@ -97,9 +94,7 @@ Should preferably be located in `dilbert-cache-dir'."
     (url-insert-file-contents url-p)
     ;; get the url to the actual image
     (re-search-forward "\\(https://assets.amuniversal.com/[a-f0-9]+\\)" )
-    (match-string 1)
-    )
-  )
+    (match-string 1)))
 
 (defun dilbert--download-and-show (url-p filename-p)
   "Internal function to download the image and show it on screen.
@@ -119,9 +114,7 @@ Should preferably be located in `dilbert-cache-dir'."
 			'face '(:weight bold :size 110)))
     (center-line)
     (insert "\n")
-    (insert-image (create-image filename-p))
-    )
-)
+    (insert-image (create-image filename-p))))
 
 (defun dilbert-kill-buffer ()
   "Kill the dilbert buffer with ARG."
