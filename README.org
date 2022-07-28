@@ -6,7 +6,7 @@ Implementation of a [[https://dilbert.org][diblert]] reader in GNU Emacs.
 * Installation
 ** Via straight and use-package
 #+begin_src emacs-lisp
-  (use-package 'dilbert
+  (use-package dilbert
     :straight (:type git :host github :repo "mrbussy/emacs-dilbert" :branch "main")
     )
 #+end_src
